@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="neonGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00ffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff00ff;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- Background -->
+  <rect width="100" height="100" fill="#0a0a12"/>
+  <!-- Grid -->
+  <g stroke="#1a1a2e" stroke-width="0.5" opacity="0.5">
+    <line x1="0" y1="20" x2="100" y2="20"/>
+    <line x1="0" y1="40" x2="100" y2="40"/>
+    <line x1="0" y1="60" x2="100" y2="60"/>
+    <line x1="0" y1="80" x2="100" y2="80"/>
+    <line x1="20" y1="0" x2="20" y2="100"/>
+    <line x1="40" y1="0" x2="40" y2="100"/>
+    <line x1="60" y1="0" x2="60" y2="100"/>
+    <line x1="80" y1="0" x2="80" y2="100"/>
+  </g>
+  <!-- Cycle trails -->
+  <g filter="url(#glow)">
+    <!-- Cyan trail -->
+    <path d="M 20 50 L 40 50 L 40 30 L 60 30" fill="none" stroke="#00ffff" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="60" cy="30" r="4" fill="#00ffff"/>
+    <!-- Magenta trail -->
+    <path d="M 80 50 L 60 50 L 60 70 L 40 70" fill="none" stroke="#ff00ff" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="40" cy="70" r="4" fill="#ff00ff"/>
+  </g>
+</svg>

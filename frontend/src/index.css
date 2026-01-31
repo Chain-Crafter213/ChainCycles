@@ -1,0 +1,223 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --neon-cyan: #00ffff;
+  --neon-magenta: #ff00ff;
+  --neon-blue: #0080ff;
+  --neon-green: #00ff88;
+  --grid-dark: #0a0a12;
+  --grid-line: #1a1a2e;
+  --panel-bg: #0d0d1a;
+  --panel-border: #2a2a4a;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  min-height: 100vh;
+  background-color: var(--grid-dark);
+  color: white;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Display/Heading font */
+.font-display {
+  font-family: 'Outfit', 'Space Grotesk', sans-serif;
+}
+
+/* Mono/Code font */
+.font-mono {
+  font-family: 'Space Grotesk', monospace;
+}
+
+body {
+  background-image: 
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 30px 30px;
+  background-position: center center;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--grid-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--panel-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-cyan);
+}
+
+/* Selection */
+::selection {
+  background: rgba(0, 255, 255, 0.3);
+  color: white;
+}
+
+/* Neon text glow */
+.text-glow-cyan {
+  text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan), 0 0 30px var(--neon-cyan);
+}
+
+.text-glow-magenta {
+  text-shadow: 0 0 10px var(--neon-magenta), 0 0 20px var(--neon-magenta), 0 0 30px var(--neon-magenta);
+}
+
+/* Panel styles */
+.panel {
+  background: rgba(13, 13, 26, 0.9);
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.panel-glow {
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.1), inset 0 0 20px rgba(0, 255, 255, 0.05);
+}
+
+/* Button styles */
+.btn-neon {
+  @apply px-6 py-3 font-display font-bold uppercase tracking-wider;
+  @apply border-2 border-neon-cyan text-neon-cyan;
+  @apply transition-all duration-300 ease-out;
+  @apply hover:bg-neon-cyan hover:text-grid-dark;
+  @apply hover:shadow-neon-cyan;
+  @apply disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-neon-cyan;
+}
+
+.btn-neon-magenta {
+  @apply border-neon-magenta text-neon-magenta;
+  @apply hover:bg-neon-magenta hover:shadow-neon-magenta;
+  @apply disabled:hover:text-neon-magenta;
+}
+
+/* Input styles */
+.input-neon {
+  @apply w-full px-4 py-3 bg-transparent;
+  @apply border-2 border-panel-border rounded-lg;
+  @apply text-white font-mono;
+  @apply focus:outline-none focus:border-neon-cyan;
+  @apply transition-all duration-300;
+}
+
+.input-neon::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* Canvas container */
+.game-canvas-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--grid-dark);
+  border: 2px solid var(--panel-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Keyframe animations */
+@keyframes scan-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+.scan-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--neon-cyan), transparent);
+  opacity: 0.3;
+  animation: scan-line 8s linear infinite;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Loading spinner */
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid transparent;
+  border-top-color: var(--neon-cyan);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Countdown animation */
+.countdown-number {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 8rem;
+  font-weight: 900;
+  color: var(--neon-cyan);
+  text-shadow: 
+    0 0 20px var(--neon-cyan),
+    0 0 40px var(--neon-cyan),
+    0 0 60px var(--neon-cyan);
+  animation: countdown-pulse 1s ease-out;
+}
+
+@keyframes countdown-pulse {
+  0% {
+    transform: scale(2);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+}
+
+/* Room card hover effect */
+.room-card {
+  @apply relative overflow-hidden;
+  @apply transition-all duration-300 ease-out;
+}
+
+.room-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 255, 255, 0.1),
+    transparent
+  );
+  transition: left 0.5s ease-out;
+}
+
+.room-card:hover::before {
+  left: 100%;
+}
+
+.room-card:hover {
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+}

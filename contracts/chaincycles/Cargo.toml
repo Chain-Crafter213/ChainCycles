@@ -1,0 +1,39 @@
+[package]
+name = "chaincycles"
+version = "0.1.0"
+edition = "2021"
+authors = ["ChainCycles Team"]
+description = "On-chain light-cycles multiplayer game for Linera"
+license = "MIT"
+
+[dependencies]
+linera-sdk = "=0.15.8"
+async-graphql = { version = "=7.0.17", default-features = false }
+async-graphql-value = "=7.0.17"
+serde = { version = "1.0", features = ["derive"] }
+sha2 = "0.10"
+hex = "0.4"
+thiserror = "1.0"
+
+[dev-dependencies]
+linera-sdk = { version = "=0.15.8", features = ["test"] }
+tokio = { version = "1.35", features = ["rt", "macros"] }
+
+[lib]
+name = "chaincycles"
+path = "src/lib.rs"
+
+[[bin]]
+name = "chaincycles_contract"
+path = "src/contract.rs"
+
+[[bin]]
+name = "chaincycles_service"
+path = "src/service.rs"
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
